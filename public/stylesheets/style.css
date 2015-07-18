@@ -34,3 +34,17 @@ nav span {
 }
 
 
+div.author {
+	text-align: left;
+}
+
+div.author div {
+	float:left;
+	margin-right: 10px
+}
+div.author img{
+	width:150px;
+}
+
+
+
