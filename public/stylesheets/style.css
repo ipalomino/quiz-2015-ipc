@@ -46,5 +46,11 @@ div.author img{
 	width:150px;
 }
 
+#ErrorMsgs {
+	color: #f61;
+	font-size: smaller
+}
+
+
 
 
