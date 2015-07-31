@@ -41,33 +41,21 @@ exports.answer = function(req, res) {
 };
 
 
-
-/*
-exports.question = function(req, res) {
-	models.Quiz.findAll().success(function (quiz){
-		res.render('quizes/question', {pregunta: quiz[0].pregunta})
+exports.new = function (req, res) {
+	var quiz = models.Quiz.build({
+		pregunta: 'Pregunta',
+		respuesta: 'Respuesta'
 	});
+
+	res.render('quizes/new', {quiz: quiz});
 };
 
-
-exports.question = function (req, res) {
-		models.Quiz.findAll().success(function (quiz){
-		res.render('quizes/question', {pregunta: quiz[0].pregunta})
-	});
+exports.create = function (req, res) {
+	var quiz = models.Quiz.build(req.body.quiz);
+	quiz.save({fields: ["pregunta", "respuesta"]}).then(function (){
+		res.redirect('/quizes');
+	})
 };
-
-exports.answer = function (req, res) {
-	models.Quiz.findAll().success(function (quiz){
-		if(req.query.respuesta === quiz[0].respuesta) {
-			res.render('quizes/answer', {respuesta: 'Correcto'});	
-		} else {
-			res.render('quizes/answer', {respuesta: 'Incorrecto'});
-		}
-	});
-};
-
-*/ 
-
 
 exports.author = function (req, res) {
 	res.render('author/author', {nombre: 'Isaac Palomino', email: 'isaac.palomino@hotmail.com'});
