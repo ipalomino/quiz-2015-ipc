@@ -29,12 +29,11 @@ exports.index = function(req, res) {
     }).catch(function(error){next(error);})
 
   } else { 
-  	models.Quiz.findAll().then(function(quizes) {
+  	models.Quiz.findAll({order: '`tematica` ASC'}).then(function(quizes) {
       res.render('quizes/index.ejs', {quizes: quizes, errors: []});
     }).catch(function(error){next(error);})
   }
 };
-
 
 // GET /quizes/:id
 exports.show = function(req, res) {
@@ -55,7 +54,8 @@ exports.answer = function(req, res) {
 exports.new = function (req, res) {
 	var quiz = models.Quiz.build({
 		pregunta: 'Pregunta',
-		respuesta: 'Respuesta'
+		respuesta: 'Respuesta',
+        tematica: 'Tematica',
 	});
 
 	res.render('quizes/new', {quiz: quiz, errors: []});
@@ -64,7 +64,6 @@ exports.new = function (req, res) {
 exports.create = function (req, res) {
 	var quiz= models.Quiz.build(req.body.quiz),
 		errors = quiz.validate(),errorList = [];
-
 
 	if (errors) {
 		if(errors.hasOwnProperty('pregunta')) {
@@ -77,7 +76,7 @@ exports.create = function (req, res) {
 		res.render('quizes/new', {quiz: quiz, errors: errorList});
 	} else {
 		quiz // save: guarda en DB campos pregunta y respuesta de quiz
-			.save({fields: ["pregunta", "respuesta"]})
+			.save({fields: ["pregunta", "respuesta", "tematica"]})
 			.then(function () {
 				res.redirect('/quizes')
 			});
@@ -106,7 +105,7 @@ exports.update = function (req, res) {
         res.render('quizes/edit', {quiz: req.quiz, errors: errorList});
     } else {
         req.quiz // save: guarda en DB campos pregunta y respuesta de quiz
-            .save({fields: ["pregunta", "respuesta"]})
+            .save({fields: ["pregunta", "respuesta", "tematica"]})
             .then(function () {
                 res.redirect('/quizes')
             });

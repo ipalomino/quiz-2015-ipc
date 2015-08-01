@@ -5,7 +5,16 @@
 
 
 <table>
-  <% var i; for (i=0; i < quizes.length; i++) { %>
+  <% var i, title;
+
+  for (i=0; i < quizes.length; i++) {
+    if(!title || title !== quizes[i].tematica){
+        title = quizes[i].tematica;
+      %>
+      <tr>
+        <td colspan="2"><h3><%= title %></h3></td>
+      </tr>
+    <%}%>
     <tr>
       <td><a href="/quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td>
       <td><a href="quizes/<%= quizes[i].id %>/edit"><button>Editar</button></a></td>
@@ -15,7 +24,7 @@
         </form>
       </td>
     </tr> 
-  <% } %>
+  <%} %>
 </table>
 <p>
   <a href="/quizes/new"><button type="button">Crear pregunta</button></a>
