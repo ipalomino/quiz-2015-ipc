@@ -48,8 +48,8 @@ sequelize.sync().success(function (){
     if(count === 0) {
       Quiz.create({pregunta: 'Capital de Italia', respuesta: 'Roma', tematica: 'humanidades'})
       .success(function () {
-        console.log('Base de datos inicializada')});
-    };
+        console.log('Base de datos inicializada');});
+    }
   });
 });
 

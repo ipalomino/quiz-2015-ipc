@@ -17,7 +17,7 @@ exports.load = function(req, res, next, quizId) {
   			next(new Error('No existe quizId=' + quizId));
   		}
 	}
-  	).catch(function(error){next(error)});
+  	).catch(function(error){next(error);});
 };
 
 
@@ -31,12 +31,12 @@ exports.index = function(req, res) {
 
 	models.Quiz.findAll({where: ["pregunta like ?", search]}).then(function(quizes) {
       res.render('quizes/index.ejs', {quizes: quizes, errors: []});
-    }).catch(function(error){next(error);})
+    }).catch(function(error){next(error);});
 
   } else { 
   	models.Quiz.findAll({order: '`tematica` ASC'}).then(function(quizes) {
       res.render('quizes/index.ejs', {quizes: quizes, errors: []});
-    }).catch(function(error){next(error);})
+    }).catch(function(error){next(error);});
   }
 };
 
@@ -60,7 +60,7 @@ exports.new = function (req, res) {
 	var quiz = models.Quiz.build({
 		pregunta: 'Pregunta',
 		respuesta: 'Respuesta',
-        tematica: 'Tematica',
+        tematica: 'Tematica'
 	});
 
 	res.render('quizes/new', {quiz: quiz, errors: []});
@@ -83,7 +83,7 @@ exports.create = function (req, res) {
 		quiz // save: guarda en DB campos pregunta y respuesta de quiz
 			.save({fields: ["pregunta", "respuesta", "tematica"]})
 			.then(function () {
-				res.redirect('/quizes')
+				res.redirect('/quizes');
 			});
 	}
 };
@@ -113,7 +113,7 @@ exports.update = function (req, res) {
         req.quiz // save: guarda en DB campos pregunta y respuesta de quiz
             .save({fields: ["pregunta", "respuesta", "tematica"]})
             .then(function () {
-                res.redirect('/quizes')
+                res.redirect('/quizes');
             });
     }
 };
@@ -122,7 +122,7 @@ exports.update = function (req, res) {
 exports.destroy = function (req, res) {
     req.quiz.destroy().then(function() {
         res.redirect('/quizes');
-    }).catch(function (error){ next(error)});
+    }).catch(function (error){ next(error);});
 
 };
 
