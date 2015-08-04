@@ -20,7 +20,7 @@ app.set('view engine', 'ejs');
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser("semilla"));
 app.use(session({
     secret: 'semilla',
@@ -39,6 +39,7 @@ app.use(function (req, res, next){
 
     //hace visible la sesion en las vistas
     res.locals.session = req.session;
+    next();
 });
 
 
