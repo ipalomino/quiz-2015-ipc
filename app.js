@@ -39,7 +39,6 @@ app.use(function (req, res, next){
 
     //hace visible la sesion en las vistas
     res.locals.session = req.session;
-    next();
 });
 
 

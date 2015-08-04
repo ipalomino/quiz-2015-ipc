@@ -13,6 +13,7 @@ var users = {
 
 exports.autenticar = function (login, password, callback) {
 	if(users[login]){
+
 		if(password === users[login].password) {
 			callback(null, users[login]);
 		} else {
