@@ -68,7 +68,11 @@ exports.new = function (req, res) {
 };
 
 exports.create = function (req, res) {
-	var quiz= models.Quiz.build(req.body.quiz),
+	var quiz= models.Quiz.build({
+			'pregunta': req.body.pregunta,
+			'respuesta': req.body.respuesta,
+			'tematica': req.body.tematica
+		}),
 		errors = quiz.validate(),errorList = [];
 
 	if (errors) {
@@ -95,9 +99,9 @@ exports.edit = function (req, res) {
 };
 
 exports.update = function (req, res) {
-    req.quiz.pregunta = req.body.quiz.pregunta;
-    req.quiz.respuesta = req.body.quiz.respuesta;
-    req.quiz.tematica = req.body.quiz.tematica;
+    req.quiz.pregunta = req.body.pregunta;
+    req.quiz.respuesta = req.body.respuesta;
+    req.quiz.tematica = req.body.tematica;
 
     var	errors = req.quiz.validate(),errorList = [];
 
