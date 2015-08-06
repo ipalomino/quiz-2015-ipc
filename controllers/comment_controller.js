@@ -6,7 +6,7 @@ exports.new = function (req, res) {
 
 exports.create = function (req, res) {
 	var comment= models.Comment.build({
-			texto: req.body.comment.texto,
+			texto: req.body.texto,
 			QuizId: req.params.quizId
 		}),
 		errors = comment.validate(),errorList = [];

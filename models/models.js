@@ -46,9 +46,16 @@ exports.Comment = Comment;
 sequelize.sync().success(function (){
   Quiz.count().success(function (count){
     if(count === 0) {
-      Quiz.create({pregunta: 'Capital de Italia', respuesta: 'Roma', tematica: 'humanidades'})
-      .success(function () {
-        console.log('Base de datos inicializada');});
+
+      Quiz.create({pregunta: 'Capital de Italia', respuesta: 'Roma', tematica: 'humanidades'});
+      Quiz.create({pregunta: 'Capital de Portugal', respuesta: 'Lisboa', tematica: 'humanidades'});
+      Quiz.create({pregunta: 'Capital de Francia', respuesta: 'Paris', tematica: 'humanidades'});
+      Quiz.create({pregunta: 'Servidor javascript', respuesta: 'Nodejs', tematica: 'tecnologia'});
+      Quiz.create({pregunta: 'Compañero de Pepe Gotera', respuesta: 'Otilio', tematica: 'ocio'});
+      Quiz.create({pregunta: 'pareja de Adán', respuesta: 'Eva', tematica: 'otro'});
+      Quiz.create({pregunta: 'Dios del Sol', respuesta: 'Ra', tematica: 'humanidades'});
+
+      console.log('Base de datos inicializada');
     }
   });
 });
