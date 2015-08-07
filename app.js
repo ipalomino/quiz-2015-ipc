@@ -1,16 +1,14 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var partials = require('express-partials');
-var methodOverride = require('method-override');
-var session = require('express-session');
-
-var routes = require('./routes/index');
-
-var app = express();
+var express = require('express'),
+    path = require('path'),
+    favicon = require('serve-favicon'),
+    logger = require('morgan'),
+    cookieParser = require('cookie-parser'),
+    bodyParser = require('body-parser'),
+    partials = require('express-partials'),
+    methodOverride = require('method-override'),
+    session = require('express-session'),
+    routes = require('./routes/index'),
+    app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -27,6 +25,28 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
+
+//auto-logout
+app.use (function (req,res, next) {
+    var margin = 2*60*1000,
+        now = new Date().getTime(),
+        lastOp = Number(req.session.lastOpDate) + Number(margin);
+
+    if(req.session.lastOpDate) {
+        if( lastOp < now) {
+            //session expirada
+            console.log("Session has expired...");
+            delete req.session.user;
+            next();
+        } else {
+            next();
+        }
+    } else {
+        req.session.lastOpDate = now;
+        next();
+    }
+});
+
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(partials());
